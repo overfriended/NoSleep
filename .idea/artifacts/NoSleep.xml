@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="NoSleep">
+    <output-path>$USER_HOME$/Desktop/stuff mc/plugins</output-path>
+    <root id="archive" name="NoSleep.jar">
+      <element id="module-output" name="CustomizableTest" />
+    </root>
+  </artifact>
+</component>
