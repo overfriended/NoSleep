@@ -1,0 +1,9 @@
+name: NoSleep
+version: ${project.version}
+main: me.rocket.nosleep.NoSleep
+api-version: 1.13
+authors: [Rocket]
+description: Fully customizable commands.
+commands:
+  nosleep:
+    description: Toggle no sleep!
