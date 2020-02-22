@@ -8,9 +8,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class CommandTest implements TabExecutor {
+public class CommandNoSleep implements TabExecutor {
     Chat c = new Chat().getInstance();
 
     @Override
@@ -47,14 +48,14 @@ public class CommandTest implements TabExecutor {
                             }
 
                             if (args[2].equalsIgnoreCase("default")) {
-                                NoSleep.getInstance().setExplosivePower(NoSleep.getInstance().getConfig().getString("explosivePower"));
+                                NoSleep.getInstance().setExplosivePower("5");
                                 c.send(player, "&aSet the value of explosion power back to default.");
+                                return true;
                             } else {
                                 NoSleep.getInstance().setExplosivePower(args[2]);
                                 c.send(player, "&aSet the value of explosion power to " + args[2]);
+                                return true;
                             }
-
-                            return true;
                         } else {
                             c.send(player, "&cNo such property!");
                             return false;
@@ -75,6 +76,32 @@ public class CommandTest implements TabExecutor {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+        List<String> result = new ArrayList<String>();
+
+        if (command.getName().equalsIgnoreCase("nosleep")) {
+            if (args.length == 1) {
+                result.clear();
+
+                result.add("toggle");
+                result.add("set");
+            } else if (args.length == 2) {
+                if (args[0].equalsIgnoreCase("set")) {
+                    result.clear();
+
+                    result.add("explosivepower");
+                }
+            } else if(args.length == 3) {
+                if(args[1].equalsIgnoreCase("explosivepower")) {
+                    result.clear();
+
+                    result.add("default");
+                    result.add("<number>");
+                }
+            }
+
+            return result;
+        }
+
         return null;
     }
 }

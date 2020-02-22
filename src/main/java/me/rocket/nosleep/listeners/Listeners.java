@@ -10,16 +10,19 @@ public class Listeners implements Listener {
 
     @EventHandler
     public void onEnterBed(PlayerBedEnterEvent e) {
-        if (NoSleep.getInstance().getConfig().getBoolean("enforceEnteringBed")) {
-            if (e.getBedEnterResult() == PlayerBedEnterEvent.BedEnterResult.OK) {
+        if (NoSleep.getInstance().isActive()) {
+            if (NoSleep.getInstance().getConfig().getBoolean("enforceEnteringBed")) {
+                if (e.getBedEnterResult() == PlayerBedEnterEvent.BedEnterResult.OK) {
+                    World w = e.getPlayer().getWorld();
+                    w.createExplosion(e.getBed().getLocation(), Integer.parseInt(NoSleep.getInstance().getExplosivePower()));
+                } else {
+                    e.setCancelled(false);
+                }
+            } else {
                 World w = e.getPlayer().getWorld();
                 w.createExplosion(e.getBed().getLocation(), Integer.parseInt(NoSleep.getInstance().getExplosivePower()));
             }
-        } else {
-            World w = e.getPlayer().getWorld();
-            w.createExplosion(e.getBed().getLocation(), Integer.parseInt(NoSleep.getInstance().getExplosivePower()));
         }
-        e.setCancelled(true);
     }
 
 }

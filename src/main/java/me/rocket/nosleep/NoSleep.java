@@ -1,6 +1,6 @@
 package me.rocket.nosleep;
 
-import me.rocket.nosleep.commands.CommandTest;
+import me.rocket.nosleep.commands.CommandNoSleep;
 import me.rocket.nosleep.listeners.Listeners;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
@@ -19,6 +19,8 @@ public final class NoSleep extends JavaPlugin {
 
     public void setExplosivePower(String explosivePower) {
         this.explosivePower = explosivePower;
+        getConfig().set("explosivePower", explosivePower);
+        saveConfig();
     }
 
     public static NoSleep getInstance() {
@@ -40,7 +42,7 @@ public final class NoSleep extends JavaPlugin {
         instance = this;
 
         pm.registerEvents(new Listeners(), this);
-        getCommand("nosleep").setExecutor(new CommandTest());
+        getCommand("nosleep").setExecutor(new CommandNoSleep());
 
         saveDefaultConfig();
     }
